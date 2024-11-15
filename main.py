@@ -10,8 +10,6 @@ from database.engine_db import session_maker, create_db, drop_db
 
 logger = logging.getLogger(__name__)
 
-config = load_config()
-
 
 async def main():
     logging.basicConfig(
@@ -21,6 +19,8 @@ async def main():
 
     logging.info('Starting bot')
 
+    config = load_config()
+    
     bot = Bot(token=config.tg_bot.token)
     admin_ids = list(config.tg_bot.admin_ids)
     bot.admin_ids = admin_ids
