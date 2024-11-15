@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import async_sessionmaker
 
 
 class AdminOuterMiddleware(BaseMiddleware):
-    def __init__(self, admin_ids: list[int]) -> None:
+    def __init__(self, admin_ids: list[int]):
         self.admin_ids = admin_ids
 
 
