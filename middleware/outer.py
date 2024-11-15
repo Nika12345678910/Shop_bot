@@ -1,4 +1,3 @@
-import logging
 from typing import Any, Awaitable, Callable, Dict
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, User
@@ -17,8 +16,6 @@ class AdminOuterMiddleware(BaseMiddleware):
         data: Dict[str, Any]
     ) -> Any:
 
-        logger = logging.getLogger(__name__)
-        logger.info('Bot in middleware')
 
         user: User = data.get('event_from_user')
         if user.id not in self.admin_ids:
