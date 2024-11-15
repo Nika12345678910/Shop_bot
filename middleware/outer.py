@@ -1,6 +1,5 @@
 import logging
 from typing import Any, Awaitable, Callable, Dict
-from config_data.config import load_config
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, User
 from sqlalchemy.ext.asyncio import async_sessionmaker
