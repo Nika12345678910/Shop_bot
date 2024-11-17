@@ -1,5 +1,3 @@
-import asyncio
-from sqlalchemy import DateTime, func, select, delete
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from database.models import Base
 from config_data.config_db import load_config_db
