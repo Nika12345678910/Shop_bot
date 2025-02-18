@@ -12,4 +12,4 @@ def create_keyboard(
         kb.add(KeyboardButton(text=text))
 
     return kb.adjust(*size).as_markup(
-            resize_keyboard=True, input_field_placeholder=placeholder)
+        resize_keyboard=True, input_field_placeholder=placeholder)

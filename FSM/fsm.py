@@ -1,18 +1,21 @@
-from aiogram.fsm.state import StatesGroup, State
+from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 
 
 storage = MemoryStorage()
 
 
-class FSMAdminPassword(StatesGroup):
-
-    fill_password = State()
-    attemt2 = State()
-    attemt3 = State()
+class AddCategoryFSM(StatesGroup):
+    category = State()
 
 
-class AddProduct(StatesGroup):
+class RegistrationFSM(StatesGroup):
+    name = State()
+    soname = State()
+    age = State()
+
+
+class AddProductFSM(StatesGroup):
     name = State()
     description = State()
     category = State()
@@ -22,14 +25,13 @@ class AddProduct(StatesGroup):
     product_for_change = None
 
     texts = {
-        "AddProduct:name": "Введите название заново:",
-        "AddProduct:description": "Введите описание заново:",
-        "AddProduct:category": "Выберите категорию  заново ⬆️",
-        "AddProduct:price": "Введите стоимость заново:",
-        "AddProduct:image": "Этот стейт последний, поэтому...",
+        "AddProductFSM:name": "Введите название заново:",
+        "AddProductFSM:description": "Введите описание заново:",
+        "AddProductFSM:category": "Выберите категорию  заново ⬆️",
+        "AddProductFSM:price": "Введите стоимость заново:",
+        "AddProductFSM:image": "Этот стейт последний, поэтому...",
     }
 
 
-
-class AddBanner(StatesGroup):
+class AddBannerFSM(StatesGroup):
     image = State()

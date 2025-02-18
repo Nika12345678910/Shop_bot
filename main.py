@@ -1,15 +1,13 @@
-import logging
 import asyncio
-from aiogram import Dispatcher, Bot
+import logging
+from aiogram import Bot, Dispatcher
+
+from database.engine import create_db, drop_db
 from config_data.config import load_config
-from handlers.user import user_router
-from handlers.admin import admin_router
+from handler.admin import admin_router
+from handler.user import user_router
 from middleware.outer import AdminOuterMiddleware, DataBaseSession
-from FSM.fsm import storage
-from database.engine_db import session_maker, create_db, drop_db
-
-
-# Что-то новое
+from database.engine import session_maker
 
 
 logger = logging.getLogger(__name__)
@@ -17,18 +15,19 @@ logger = logging.getLogger(__name__)
 
 async def main():
     logging.basicConfig(
+        filename="ru_log.log",
+        filemode="w",
         level=logging.DEBUG,
-        format='%(filename)s:%(lineno)d #%(levelname)-8s '
-               '[%(asctime)s] - %(name)s - %(message)s')
-
-    logging.info('Starting bot')
+        format="%(filename)s:%(lineno)d #%(levelname)-8s "
+               "[%(asctime)s] - %(name)s - %(message)s"
+    )
 
     config = load_config()
 
     bot = Bot(token=config.tg_bot.token)
-    admin_ids = list(config.tg_bot.admin_ids)
+    admin_ids = list(config.tg_bot.admin_id)
     bot.admin_ids = admin_ids
-    dp = Dispatcher(storage=storage)
+    dp = Dispatcher()
 
     async def startup(bot):
         # await drop_db()
@@ -36,6 +35,7 @@ async def main():
 
     dp.startup.register(startup)
 
+    logger.info("Starting bot")
     dp.include_router(user_router)
     dp.include_router(admin_router)
 
@@ -45,5 +45,6 @@ async def main():
 
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
+
 
 asyncio.run(main())
