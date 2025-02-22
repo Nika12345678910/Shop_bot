@@ -8,6 +8,7 @@ from handler.admin import admin_router
 from handler.user import user_router
 from middleware.outer import AdminOuterMiddleware, DataBaseSession
 from database.engine import session_maker
+from FSM.fsm import storage
 
 
 logger = logging.getLogger(__name__)
@@ -27,7 +28,7 @@ async def main():
     bot = Bot(token=config.tg_bot.token)
     admin_ids = list(config.tg_bot.admin_id)
     bot.admin_ids = admin_ids
-    dp = Dispatcher()
+    dp = Dispatcher(storage=storage)
 
     async def startup(bot):
         # await drop_db()
