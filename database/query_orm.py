@@ -75,7 +75,7 @@ async def get_product_orm(session: AsyncSession, product_id: int):
     return result.scalar()
 
 
-async def update_product_orm(session: AsyncSession, product_id: int, data):
+async def update_product_orm(session: AsyncSession, product_id: int, data: dict):
     query = (update(CatalogORM).where(CatalogORM.id == product_id).values(
         product_name=data["name"],
         description=data["description"],
@@ -143,7 +143,7 @@ async def add_to_cart_orm(session: AsyncSession, user_id: int, product_id: int):
         await session.commit()
 
 
-async def get_user_carts_orm(session: AsyncSession, user_id):
+async def get_user_carts_orm(session: AsyncSession, user_id: int):
     query = query = select(ShoppingCartORM).filter(
         ShoppingCartORM.user_id == user_id).options(joinedload(ShoppingCartORM.products_2))
     result = await session.execute(query)
